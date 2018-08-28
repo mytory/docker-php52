@@ -1,7 +1,9 @@
 # docker-php52
 
-docker for legacy php52
+Docker for legacy php52
 
-to run, type this:
+To run, type this:
 
     docker-compose up
+
+If you need more virtual hosts, add configuration files to `site-enabeld` directory.
