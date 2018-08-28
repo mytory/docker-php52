@@ -1,11 +1,19 @@
-php:
+version: "3"
+services:
+  php52:
+    container_name: php52
     build: .
     working_dir: /var/www/app
     volumes:
-        - "..:/var/www/app/html:delegated"
-        - "./sites-enabled:/etc/apache2/sites-enabled:delegated"
-        - "../../.ssh:/root/.ssh:delegated"
+      - "..:/var/www/app/html:delegated"
+      - "./sites-enabled:/etc/apache2/sites-enabled:delegated"
+      - "../../.ssh:/root/.ssh:delegated"
     ports:
-        - 80:80
-    environment:
-        ENVIRONMENT: dev
+      - 80:80
+    networks: 
+      - default
+
+networks:
+  default:
+    external:
+      name: docker-ws_default
