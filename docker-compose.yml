@@ -1,0 +1,11 @@
+php:
+    build: .
+    working_dir: /var/www/app
+    volumes:
+        - "..:/var/www/app/html:delegated"
+        - "./sites-enabled:/etc/apache2/sites-enabled:delegated"
+        - "../../.ssh:/root/.ssh:delegated"
+    ports:
+        - 80:80
+    environment:
+        ENVIRONMENT: dev
