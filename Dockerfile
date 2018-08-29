@@ -38,10 +38,15 @@ RUN \
   a2enmod filter && \
   a2enmod deflate && \
   a2enmod setenvif && \
-  a2enmod vhost_alias && \
-  apt-get autoremove -y && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists
+  a2enmod vhost_alias 
+
+# xdebug
+RUN apt-get install -y --force-yes --no-install-recommends build-essential php5-dev
+RUN pecl install xdebug-2.2.7
+
+# etc
+RUN apt-get install -y --force-yes --no-install-recommends iputils-ping ssh rsync sudo mysql-client 
+
 
 # timezone
 RUN apt-get install --no-install-recommends -y tzdata
@@ -54,6 +59,10 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+
+# remove files only for build.
+RUN apt-get remove -y --force-yes php5-dev build-essential
+RUN apt-get autoremove -y
 
 RUN ln -sf /dev/stderr /var/log/apache2/error.log
 
